@@ -1,3 +1,5 @@
+from collections import Counter
+
 def calcular_distancia_total(lista_izquierda, lista_derecha):
     # Ordenar ambas listas
     lista_izquierda_ordenada = sorted(lista_izquierda)
@@ -7,6 +9,17 @@ def calcular_distancia_total(lista_izquierda, lista_derecha):
     distancia_total = sum(abs(a - b) for a, b in zip(lista_izquierda_ordenada, lista_derecha_ordenada))
     
     return distancia_total
+
+def calcular_puntuacion_similitud(lista_izquierda, lista_derecha):
+    # Contar las ocurrencias de cada número en la lista derecha
+    conteo_derecha = Counter(lista_derecha)
+    
+    # Calcular la puntuación de similitud
+    puntuacion_total = 0
+    for numero in lista_izquierda:
+        puntuacion_total += numero * conteo_derecha.get(numero, 0)
+    
+    return puntuacion_total
 
 
 
@@ -44,3 +57,7 @@ lista_izquierda, lista_derecha = leer_fichero(archivo)
 distancia = calcular_distancia_total(lista_izquierda, lista_derecha)
 
 print(f"La distancia total mínima es: {distancia}")
+
+
+puntuacion = calcular_puntuacion_similitud(lista_izquierda, lista_derecha)
+print(f"La puntuación de similitud es: {puntuacion}")
